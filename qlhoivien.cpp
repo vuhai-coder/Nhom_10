@@ -1,0 +1,132 @@
+#include<iostream>
+#include<string>
+#include<iomanip>
+using namespace std;
+
+class person {
+private:
+	string ID;
+	string name;
+	int age;
+public:
+	person() {
+		ID = "";
+		name = "";
+		age = 0;
+	}
+	void nhap() {
+		cout << "Nhap ID:";
+		cin >> ID;
+		cin.ignore();
+		cout << "Nhap ten:";
+		getline(cin, name);
+		while (name.empty()) {
+			cout << "Ten khong duoc de trong. Nhap lai:";
+			getline(cin, name);
+		}
+		cout << "Nhap tuoi:";
+		cin >> age;
+		while (age <= 0) {
+			cout << "Tuoi phai lon hon 0. Nhap lai:";
+			cin >> age;
+		}
+	}
+
+	void xuat() {
+		cout << "ID:" << ID << endl;
+		cout << "Ten:" << name << endl;
+		cout << "Tuoi:" << age << endl;
+	}
+	string getID() {
+		return ID;
+	}
+};
+
+class member : public person {
+private:
+	float weight;
+	float height;
+public:
+	member() :person() {
+		weight = 0.0f;
+		height = 0.0f;
+	}
+
+	void nhap() {
+		person::nhap();
+		cout << "Nhap can nang:";
+		cin >> weight;
+		while (weight <= 0) {
+			cout << "Can nang phai lon hon 0. Nhap lai:";
+			cin >> weight;
+		}
+		cout << "Nhap chieu cao:";
+		cin >> height;
+		while (height <= 0) {
+			cout << "Chieu cao phai lon hon 0. Nhap lai:";
+			cin >> height;
+		}
+	}
+
+	float tinhBMI() {
+		return weight / (height * height);
+	}
+	string xepLoaiBMI() {
+		float bmi = tinhBMI();
+		if (bmi < 18.5) return "Gay";
+		else if (bmi < 25) return "Binh thuong";
+		else return "Thua can";
+	}
+	void xuat() {
+		person::xuat();
+		cout << "Can nang:" << weight << endl;
+		cout << "Chieu cao:" << height << endl;
+		cout << "BMI:" << fixed << setprecision(2) << tinhBMI() << endl;
+		cout << "Xep loai:" << xepLoaiBMI() << endl;
+	}
+
+	static void nhapdanhsach(member ds[], int& n) {
+		cout << "Nhap so luong hoi vien:";
+		cin >> n;
+		while (n <= 0 || n > 100) {
+			cout << "So luong khong hop le (1-100). Nhap lai: ";
+			cin >> n;
+		}
+		for (int i = 0; i < n; i++) {
+			cout << "Nhap thong tin cho member thu " << i + 1 << ":" << endl;
+			ds[i].nhap();
+		}
+	}
+
+	static void xuatdanhsach(member ds[], int n) {
+		for (int i = 0; i < n; i++) {
+			cout << "Thong tin member thu " << i + 1 << ":" << endl;
+			ds[i].xuat();
+		}
+	}
+
+	static void timkiem(member ds[], int n, string id) {
+		for (int i = 0; i < n; i++) {
+			if (ds[i].getID() == id) {
+				cout << "Thong tin hoi vien co ID " << id << ":" << endl;
+				ds[i].xuat();
+				return;
+			}
+		}
+		cout << "Khong tim thay member co ID " << id << endl;
+	}
+};
+
+int main() {
+	member ds[100];
+	int n;
+	string id;
+	member::nhapdanhsach(ds, n);
+	member::xuatdanhsach(ds, n);
+	cout << "Nhap ID can tim:";
+	cin >> id;
+	member::timkiem(ds, n, id);
+	return 0;
+
+}
+
