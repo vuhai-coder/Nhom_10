@@ -10,33 +10,29 @@ private:
     trainer t[50];
     Package p[50];
     Workout w[100];
-
     int nm;
     int nt;
     int np;
     int nw;
-
 public:
     GymSystem();
-
     void menu();
     void menuMember();
     void menuTrainer();
     void menuPackage();
     void menuWorkout();
-
     void nhapMember();
     void xuatMember();
     void timMember();
     void xoaMember();
     void suaMember();
-
     void nhapTrainer();
     void xuatTrainer();
-
+    void suaTrainer();
     void nhapPackage();
     void xuatPackage();
-
+    void suaPackage();
     void nhapWorkout();
     void xuatWorkout();
+    void suaWorkout();
 };
