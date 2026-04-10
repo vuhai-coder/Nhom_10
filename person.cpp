@@ -22,21 +22,18 @@ void person::setAge(int a) {
 }
 void person::nhap() {
     cout << "Nhap ID: ";
-    while (!(cin >> id) || id < 0) {
-        cin.clear();
-        cin.ignore(1000, '\n');
+    cin >> id;
+    while (id < 0) {
         cout << "Nhap lai ID: ";
+        cin >> id;
     }
-
-    cin.ignore(1000, '\n'); 
-
+    cin.ignore();
     cout << "Nhap ten: ";
     getline(cin, name);
     while (name.empty()) {
         cout << "Nhap lai ten: ";
         getline(cin, name);
     }
-
     cout << "Nhap tuoi: ";
     while (!(cin >> age) || age <= 0) {
         cin.clear();
