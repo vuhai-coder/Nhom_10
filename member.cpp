@@ -61,15 +61,13 @@ void member::nhap() {
 
     cout << "Nhap can nang: ";
     while (!(cin >> weight) || weight <= 0) {
-        cin.clear();
-        cin.ignore(1000, '\n');
+        cin.ignore();
         cout << "Nhap lai can nang: ";
     }
 
     cout << "Nhap chieu cao: ";
     while (!(cin >> height) || height <= 0) {
-        cin.clear();
-        cin.ignore(1000, '\n');
+        cin.ignore();
         cout << "Nhap lai chieu cao: ";
     }
 }
