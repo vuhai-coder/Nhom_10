@@ -11,6 +11,5 @@ public:
     trainer();
     void nhap();
     void xuat();
-
     string getChuyenMon();
 };
