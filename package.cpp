@@ -11,7 +11,6 @@ Package::Package() {
 }
 
 void Package::nhap() {
-    cin.ignore();
     cout << "Nhap ID goi: ";
     getline(cin, id);
     while (id.empty()) {
@@ -32,10 +31,12 @@ void Package::nhap() {
         cout << "Nhap lai gia: ";
     }
 
-	cout << "Nhap thoi han (thang): ";
+    cout << "Nhap thoi han (thang): ";
     while (!(cin >> thoihan) || thoihan <= 0) {
+        cin.ignore();
         cout << "Nhap lai thoi han: ";
-	}
+    }
+    cin.ignore();
 }
 
 void Package::xuat() {
@@ -43,7 +44,7 @@ void Package::xuat() {
         << setw(15) << id
         << setw(20) << name
         << setw(12) << price
-		<< setw(10) << thoihan
+        << setw(10) << thoihan
         << endl;
 }
 
@@ -58,6 +59,7 @@ string Package::getName() {
 float Package::getPrice() {
     return price;
 }
+
 int Package::getthoihan() {
     return thoihan;
 }
