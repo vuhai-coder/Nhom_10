@@ -10,6 +10,7 @@ trainer::trainer() {
 void trainer::nhap() {
     person::nhap();
     cin.ignore();
+
     cout << "Nhap chuyen mon: ";
     getline(cin, chuyenMon);
     while (chuyenMon.empty()) {
@@ -21,7 +22,7 @@ void trainer::nhap() {
 void trainer::xuat() {
     cout << left
         << setw(15) << getID()
-        << setw(15) << getName()
+        << setw(20) << getName()
         << setw(10) << getAge()
         << setw(20) << chuyenMon
         << endl;
