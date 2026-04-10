@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-
 string Workout::chonNhomBaiTap() {
     int chon;
     while (true) {
@@ -18,13 +17,11 @@ string Workout::chonNhomBaiTap() {
 
         if (cin.fail() || chon < 1 || chon > 7) {
             cout << "Sai! Nhap lai!\n";
-            cin.clear();
-            cin.ignore(1000, '\n');
+            cin.ignore();
             continue;
         }
 
-        cin.ignore(1000, '\n');
-
+        cin.ignore();
         if (chon == 1) return "Nguc";
         if (chon == 2) return "Lung";
         if (chon == 3) return "Chan";
@@ -35,24 +32,21 @@ string Workout::chonNhomBaiTap() {
     }
 }
 
-// ===================== CHON BAI TAP =====================
 
 string Workout::chonTenBaiTapTheoNhom(string nhom) {
     int chon;
-
     if (nhom == "Nguc") {
         while (true) {
             cout << "1. Day nguc\n2. Day nguc tren\n3. Chong day\nNhap: ";
             cin >> chon;
-
             if (cin.fail() || chon < 1 || chon > 3) {
                 cout << "Sai! Nhap lai!\n";
                 cin.clear();
-                cin.ignore(1000, '\n');
+                cin.ignore();
                 continue;
             }
 
-            cin.ignore(1000, '\n');
+            cin.ignore();
 
             if (chon == 1) return "Day nguc";
             if (chon == 2) return "Day nguc tren";
@@ -67,12 +61,11 @@ string Workout::chonTenBaiTapTheoNhom(string nhom) {
 
             if (cin.fail() || chon < 1 || chon > 3) {
                 cout << "Sai! Nhap lai!\n";
-                cin.clear();
-                cin.ignore(1000, '\n');
+                cin.ignore();
                 continue;
             }
 
-            cin.ignore(1000, '\n');
+            cin.ignore();
 
             if (chon == 1) return "Hit xa";
             if (chon == 2) return "Keo xuong";
@@ -87,8 +80,7 @@ string Workout::chonTenBaiTapTheoNhom(string nhom) {
 
             if (cin.fail() || chon < 1 || chon > 3) {
                 cout << "Sai! Nhap lai!\n";
-                cin.clear();
-                cin.ignore(1000, '\n');
+                cin.ignore();
                 continue;
             }
 
@@ -107,13 +99,10 @@ string Workout::chonTenBaiTapTheoNhom(string nhom) {
 
             if (cin.fail() || chon < 1 || chon > 3) {
                 cout << "Sai! Nhap lai!\n";
-                cin.clear();
-                cin.ignore(1000, '\n');
+                cin.ignore();
                 continue;
             }
-
-            cin.ignore(1000, '\n');
-
+            cin.ignore();
             if (chon == 1) return "Day vai";
             if (chon == 2) return "Nang ngang";
             return "Nang truoc";
@@ -127,12 +116,11 @@ string Workout::chonTenBaiTapTheoNhom(string nhom) {
 
             if (cin.fail() || chon < 1 || chon > 3) {
                 cout << "Sai! Nhap lai!\n";
-                cin.clear();
-                cin.ignore(1000, '\n');
+                cin.ignore();
                 continue;
             }
 
-            cin.ignore(1000, '\n');
+            cin.ignore();
 
             if (chon == 1) return "Gap tay truoc";
             if (chon == 2) return "Gap ta don";
@@ -167,12 +155,11 @@ string Workout::chonTenBaiTapTheoNhom(string nhom) {
 
             if (cin.fail() || chon < 1 || chon > 3) {
                 cout << "Sai! Nhap lai!\n";
-                cin.clear();
-                cin.ignore(1000, '\n');
+                cin.ignore();
                 continue;
             }
 
-            cin.ignore(1000, '\n');
+            cin.ignore();
 
             if (chon == 1) return "Plank";
             if (chon == 2) return "Gap bung";
@@ -183,8 +170,6 @@ string Workout::chonTenBaiTapTheoNhom(string nhom) {
     return "";
 }
 
-// ===================== NHAP =====================
-
 int Workout::nhapSoNguyenDuong() {
     int x;
     while (true) {
@@ -193,8 +178,7 @@ int Workout::nhapSoNguyenDuong() {
 
         if (cin.fail() || x <= 0) {
             cout << "Sai! Nhap lai!\n";
-            cin.clear();
-            cin.ignore(1000, '\n');
+            cin.ignore();
             continue;
         }
 
@@ -208,8 +192,6 @@ void Workout::nhap() {
     tenBaiTap = chonTenBaiTapTheoNhom(nhomBaiTap);
     thoiGian = nhapSoNguyenDuong();
 }
-
-// ===================== CALO =====================
 
 double Workout::layCaloMoiPhut() {
     if (tenBaiTap == "Day nguc") return 8;
@@ -247,8 +229,6 @@ double Workout::tinhCalo() {
     return thoiGian * layCaloMoiPhut();
 }
 
-// ===================== HIEN THI =====================
-
 void Workout::hienThi() {
     cout << left
         << setw(30) << tenBaiTap
@@ -257,4 +237,8 @@ void Workout::hienThi() {
         << setw(15) << layCaloMoiPhut()
         << setw(10) << tinhCalo()
         << endl;
+}
+
+string Workout::gettenBaiTap() {
+    return tenBaiTap;
 }
