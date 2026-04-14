@@ -20,26 +20,32 @@ void person::setName(string s) {
 void person::setAge(int a) {
     age = a;
 }
+
 void person::nhap() {
     cout << "Nhap ID: ";
-    cin >> id;
-    while (id < 0) {
+    while (!(cin >> id) || id < 0) {
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai ID: ";
-        cin >> id;
     }
-    cin.ignore();
+
+    cin.ignore(1000, '\n');
+
     cout << "Nhap ten: ";
     getline(cin, name);
     while (name.empty()) {
         cout << "Nhap lai ten: ";
         getline(cin, name);
     }
+
     cout << "Nhap tuoi: ";
     while (!(cin >> age) || age <= 0) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai tuoi: ";
     }
 }
+
 void person::xuat() {
     cout << left
         << setw(10) << id
