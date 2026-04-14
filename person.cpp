@@ -13,8 +13,8 @@ void person::setID(int s) {
     id = s;
 }
 
-void person::setName(string s) {
-    name = s;
+void person::setName(string n) {
+    name = n;
 }
 
 void person::setAge(int a) {
