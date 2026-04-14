@@ -7,11 +7,11 @@ private:
     string tenBaiTap;
     string nhomBaiTap;
     int thoiGian;
+
 public:
-	string gettenBaiTap();
     string chonNhomBaiTap();
     string chonTenBaiTapTheoNhom(string nhom);
-    int nhapSoNguyenDuong();
+    int nhapThoiGianTap();
     void nhap();
     double layCaloMoiPhut();
     double tinhCalo();
