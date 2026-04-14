@@ -16,6 +16,6 @@ public:
     string getName();
     int getAge();
     void setID(int s);
-    void setName(string s);
+    void setName(string n);
     void setAge(int a);
 };
