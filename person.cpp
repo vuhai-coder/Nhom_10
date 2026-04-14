@@ -36,8 +36,7 @@ void person::nhap() {
     }
     cout << "Nhap tuoi: ";
     while (!(cin >> age) || age <= 0) {
-        cin.clear();
-        cin.ignore(1000, '\n');
+        cin.ignore();
         cout << "Nhap lai tuoi: ";
     }
 }
