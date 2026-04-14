@@ -25,12 +25,15 @@ void GymSystem::nhapMember() {
         cout << "Chua co workout nao. Hay nhap workout truoc.\n";
         return;
     }
+
     int sl;
     cout << "Nhap so luong member: ";
     while (!(cin >> sl) || sl <= 0 || nm + sl > 100) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai so luong member: ";
     }
+
     for (int i = 0; i < sl; i++) {
         cout << "\n--- Them member thu " << nm + 1 << " ---\n";
         m[nm].nhap();
@@ -41,6 +44,7 @@ void GymSystem::nhapMember() {
             p[j].xuat();
             cout << "------------------\n";
         }
+
         int chonGoi;
         do {
             cout << "Chon goi (1 -> " << np << "): ";
@@ -55,6 +59,7 @@ void GymSystem::nhapMember() {
             t[j].xuat();
             cout << "------------------\n";
         }
+
         int chonTrainer;
         do {
             cout << "Chon trainer (1 -> " << nt << "): ";
@@ -65,15 +70,18 @@ void GymSystem::nhapMember() {
 
         cout << "\n=== DANH SACH WORKOUT ===\n";
         for (int j = 0; j < nw; j++) {
-            cout << j + 1<< ". ";
+            cout << j + 1 << ". ";
             w[j].hienThi();
         }
+
         int soLuongWorkoutChon;
         cout << "Nhap so workout muon chon: ";
         while (!(cin >> soLuongWorkoutChon) || soLuongWorkoutChon <= 0 || soLuongWorkoutChon > nw) {
-            cin.ignore();
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Nhap lai so workout muon chon: ";
         }
+
         for (int k = 0; k < soLuongWorkoutChon; k++) {
             int chonWorkout;
             do {
@@ -84,6 +92,7 @@ void GymSystem::nhapMember() {
             chonWorkout--;
             m[nm].themWorkout(chonWorkout);
         }
+
         nm++;
     }
 }
@@ -117,62 +126,113 @@ void GymSystem::xuatMember() {
 
         int idxGoi = m[i].laygoi();
         if (idxGoi >= 0 && idxGoi < np) {
-            string goi = p[idxGoi].getName() +
-                "(" + to_string(p[idxGoi].getthoihan()) + " thang)";
+            string goi = p[idxGoi].getName() + " (" + to_string(p[idxGoi].getthoihan()) + " thang)";
             cout << setw(25) << goi;
         }
         else {
-            cout << setw(15) << "Chua chon";
+            cout << setw(25) << "Chua chon";
         }
+
         int idxTrainer = m[i].layTrainer();
         if (idxTrainer >= 0 && idxTrainer < nt)
             cout << setw(15) << t[idxTrainer].getName();
         else
             cout << setw(15) << "Chua chon";
+
         cout << endl;
         cout << "   Workout: ";
+
         int sw = m[i].laySoWorkout();
         if (sw == 0) {
             cout << "Chua chon workout nao.";
         }
         else {
             bool first = true;
-
             for (int j = 0; j < sw; j++) {
                 int idxWorkout = m[i].layWorkoutTai(j);
                 if (idxWorkout >= 0 && idxWorkout < nw) {
-
-                    if (!first) {
-                        cout << ", ";
-                    }
-
+                    if (!first) cout << ", ";
                     cout << w[idxWorkout].gettenBaiTap();
                     first = false;
                 }
             }
-            cout << endl;
         }
+        cout << endl;
     }
 }
-    void GymSystem::timMember() {
-        if (nm == 0) {
-            cout << "Chua co member nao.\n";
+
+void GymSystem::timMember() {
+    if (nm == 0) {
+        cout << "Chua co member nao.\n";
+        return;
+    }
+
+    int id;
+    cout << "Nhap ID can tim: ";
+    cin >> id;
+
+    for (int i = 0; i < nm; i++) {
+        if (m[i].getID() == id) {
+            cout << "\n========================= THONG TIN MEMBER TIM THAY =========================\n";
+            cout << left
+                << setw(10) << "ID"
+                << setw(20) << "Ten"
+                << setw(10) << "Tuoi"
+                << setw(12) << "Can nang"
+                << setw(12) << "Chieu cao"
+                << setw(12) << "BMI"
+                << setw(25) << "Goi"
+                << setw(15) << "Trainer"
+                << endl;
+
+            cout << left
+                << setw(10) << m[i].getID()
+                << setw(20) << m[i].getName()
+                << setw(10) << m[i].getAge()
+                << setw(12) << m[i].getWeight()
+                << setw(12) << m[i].getHeight()
+                << setw(12) << m[i].tinhBMI();
+
+            int idxGoi = m[i].laygoi();
+            if (idxGoi >= 0 && idxGoi < np) {
+                string goi = p[idxGoi].getName() + " (" + to_string(p[idxGoi].getthoihan()) + " thang)";
+                cout << setw(25) << goi;
+            }
+            else {
+                cout << setw(25) << "Chua chon";
+            }
+
+            int idxTrainer = m[i].layTrainer();
+            if (idxTrainer >= 0 && idxTrainer < nt)
+                cout << setw(15) << t[idxTrainer].getName();
+            else
+                cout << setw(15) << "Chua chon";
+
+            cout << endl;
+            cout << "Workout: ";
+
+            int sw = m[i].laySoWorkout();
+            if (sw == 0) {
+                cout << "Chua chon workout nao.";
+            }
+            else {
+                bool first = true;
+                for (int j = 0; j < sw; j++) {
+                    int idxWorkout = m[i].layWorkoutTai(j);
+                    if (idxWorkout >= 0 && idxWorkout < nw) {
+                        if (!first) cout << ", ";
+                        cout << w[idxWorkout].gettenBaiTap();
+                        first = false;
+                    }
+                }
+            }
+            cout << endl;
             return;
         }
-        int id;
-        cout << "Nhap ID can tim: ";
-        cin >> id;
-
-        for (int i = 0; i < nm; i++) {
-            if (m[i].getID() == id) {
-                cout << "Tim thay member:\n";
-                m[i].xuat();
-                return;
-            }
-        }
-
-        cout << "Khong tim thay member.\n";
     }
+
+    cout << "Khong tim thay member.\n";
+}
 
 void GymSystem::xoaMember() {
     if (nm == 0) {
@@ -203,24 +263,87 @@ void GymSystem::suaMember() {
         cout << "Chua co member nao de sua.\n";
         return;
     }
-    xuatMember();
-    int stt;
-    cout << "Nhap STT member can sua: ";
-    while (!(cin >> stt) || stt < 1 || stt > nm) {
-        cin.ignore();
-        cout << "Nhap lai STT member can sua: ";
+
+    int id;
+    cout << "Nhap ID member can sua: ";
+    cin >> id;
+
+    for (int i = 0; i < nm; i++) {
+        if (m[i].getID() == id) {
+            cout << "\n--- Nhap lai thong tin member ---\n";
+            m[i].nhap();
+
+            cout << "\n=== DANH SACH GOI ===\n";
+            for (int j = 0; j < np; j++) {
+                cout << "Goi so " << j + 1 << ":\n";
+                p[j].xuat();
+                cout << "------------------\n";
+            }
+
+            int chonGoi;
+            do {
+                cout << "Chon lai goi (1 -> " << np << "): ";
+                cin >> chonGoi;
+            } while (chonGoi < 1 || chonGoi > np);
+            chonGoi--;
+            m[i].chongoi(chonGoi);
+
+            cout << "\n=== DANH SACH TRAINER ===\n";
+            for (int j = 0; j < nt; j++) {
+                cout << "Trainer so " << j + 1 << ":\n";
+                t[j].xuat();
+                cout << "------------------\n";
+            }
+
+            int chonTrainer;
+            do {
+                cout << "Chon lai trainer (1 -> " << nt << "): ";
+                cin >> chonTrainer;
+            } while (chonTrainer < 1 || chonTrainer > nt);
+            chonTrainer--;
+            m[i].chonTrainer(chonTrainer);
+
+            cout << "\n=== DANH SACH WORKOUT ===\n";
+            for (int j = 0; j < nw; j++) {
+                cout << j + 1 << ". ";
+                w[j].hienThi();
+            }
+
+            int soLuongWorkoutChon;
+            cout << "Nhap so workout muon chon lai: ";
+            while (!(cin >> soLuongWorkoutChon) || soLuongWorkoutChon <= 0 || soLuongWorkoutChon > nw) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Nhap lai so workout muon chon: ";
+            }
+
+            m[i].resetWorkout();
+
+            for (int k = 0; k < soLuongWorkoutChon; k++) {
+                int chonWorkout;
+                do {
+                    cout << "Chon workout thu " << k + 1 << " (1 -> " << nw << "): ";
+                    cin >> chonWorkout;
+                } while (chonWorkout < 1 || chonWorkout > nw);
+
+                chonWorkout--;
+                m[i].themWorkout(chonWorkout);
+            }
+
+            cout << "Da sua member.\n";
+            return;
+        }
     }
-    stt--;
-    cout << "Nhap lai thong tin member:\n";
-    m[stt].nhap();
-    cout << "Da sua member.\n";
+
+    cout << "Khong tim thay member.\n";
 }
 
 void GymSystem::nhapTrainer() {
     int sl;
     cout << "Nhap so luong trainer muon them: ";
     while (!(cin >> sl) || sl <= 0 || nt + sl > 50) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai so luong trainer muon them: ";
     }
 
@@ -259,7 +382,8 @@ void GymSystem::suaTrainer() {
     int stt;
     cout << "Nhap STT trainer can sua: ";
     while (!(cin >> stt) || stt < 1 || stt > nt) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai STT trainer can sua: ";
     }
     stt--;
@@ -272,10 +396,11 @@ void GymSystem::nhapPackage() {
     int sl;
     cout << "Nhap so luong package muon them: ";
     while (!(cin >> sl) || sl <= 0 || np + sl > 50) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai so luong package muon them: ";
     }
-    cin.ignore();
+    cin.ignore(1000, '\n');
     for (int i = 0; i < sl; i++) {
         cout << "\n--- Nhap package thu " << np + 1 << " ---\n";
         p[np].nhap();
@@ -311,7 +436,8 @@ void GymSystem::suaPackage() {
     int stt;
     cout << "Nhap STT package can sua: ";
     while (!(cin >> stt) || stt < 1 || stt > np) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai STT package can sua: ";
     }
     stt--;
@@ -325,7 +451,8 @@ void GymSystem::nhapWorkout() {
     int sl;
     cout << "Nhap so luong workout muon them: ";
     while (!(cin >> sl) || sl <= 0 || nw + sl > 100) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai so luong workout muon them: ";
     }
 
@@ -369,7 +496,8 @@ void GymSystem::suaWorkout() {
     int stt;
     cout << "Nhap STT workout can sua: ";
     while (!(cin >> stt) || stt < 1 || stt > nw) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai STT workout can sua: ";
     }
     stt--;
@@ -390,7 +518,8 @@ void GymSystem::menu() {
         cout << "\nChon: ";
 
         while (!(cin >> ch)) {
-            cin.ignore();
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Nhap lai lua chon: ";
         }
 
@@ -429,7 +558,8 @@ void GymSystem::menuMember() {
         cout << "\nChon: ";
 
         while (!(cin >> ch)) {
-            cin.ignore();
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Nhap lai lua chon: ";
         }
 
@@ -456,6 +586,7 @@ void GymSystem::menuMember() {
         }
     } while (ch != 0);
 }
+
 void GymSystem::menuTrainer() {
     int ch;
     do {
@@ -467,7 +598,8 @@ void GymSystem::menuTrainer() {
         cout << "\nChon: ";
 
         while (!(cin >> ch)) {
-            cin.ignore();
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Nhap lai lua chon: ";
         }
 
@@ -500,7 +632,8 @@ void GymSystem::menuPackage() {
         cout << "\nChon: ";
 
         while (!(cin >> ch)) {
-            cin.ignore();
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Nhap lai lua chon: ";
         }
 
@@ -533,7 +666,8 @@ void GymSystem::menuWorkout() {
         cout << "\nChon: ";
 
         while (!(cin >> ch)) {
-            cin.ignore();
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Nhap lai lua chon: ";
         }
 
