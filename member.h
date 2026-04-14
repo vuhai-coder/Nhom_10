@@ -12,23 +12,18 @@ private:
 
 public:
     member();
-
     void setWeight(float w);
     void setHeight(float h);
-
     float getWeight();
     float getHeight();
-
     void chongoi(int index);
     int laygoi();
-
     void chonTrainer(int index);
     int layTrainer();
-
     void themWorkout(int index);
     int laySoWorkout();
     int layWorkoutTai(int vitri);
-
+    void resetWorkout();
     void nhap();
     void xuat();
     float tinhBMI();
