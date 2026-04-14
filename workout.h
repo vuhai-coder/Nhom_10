@@ -9,6 +9,7 @@ private:
     int thoiGian;
 
 public:
+    string gettenBaiTap();
     string chonNhomBaiTap();
     string chonTenBaiTapTheoNhom(string nhom);
     int nhapThoiGianTap();
