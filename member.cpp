@@ -4,6 +4,9 @@
 using namespace std;
 
 member::member() : weight(0), height(0), goiindex(-1), trainerIndex(-1), soWorkout(0) {
+    for (int i = 0; i < 100; i++) {
+        dsWorkout[i] = -1;
+    }
 }
 
 void member::setWeight(float w) {
@@ -56,18 +59,27 @@ int member::layWorkoutTai(int vitri) {
     return -1;
 }
 
+void member::resetWorkout() {
+    soWorkout = 0;
+    for (int i = 0; i < 100; i++) {
+        dsWorkout[i] = -1;
+    }
+}
+
 void member::nhap() {
     person::nhap();
 
     cout << "Nhap can nang: ";
     while (!(cin >> weight) || weight <= 0) {
+        cin.clear();
         cin.ignore();
         cout << "Nhap lai can nang: ";
     }
 
     cout << "Nhap chieu cao: ";
     while (!(cin >> height) || height <= 0) {
-        cin.ignore();
+        cin.clear();
+        cin.ignore(1000, '\n');
         cout << "Nhap lai chieu cao: ";
     }
 }
